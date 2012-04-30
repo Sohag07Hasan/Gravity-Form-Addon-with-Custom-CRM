@@ -22,7 +22,7 @@ class GravityFormCustomCRM{
 		'client_state' => array('Client State', 'Client State/Province/Region'),
 		'flight_location' => array('Flight Location', 'Flight Location'),
 		'flight_date' => array('Flight Date', 'Flight Date'),
-		'flight_length' => array('Flight Date', 'Flight Length'),
+		'flight_length' => array('Flight Length', 'Flight Length'),
 		'flight_video_enable' => array('Video Enable', 'Flight Video Enable'),
 		'person_who_fly_fname' => array('First Name(who fly)', 'Person who Fly'),
 		'person_who_fly_lname' => array('Last Name(who fly)', 'Person who Fly'),
@@ -54,7 +54,7 @@ class GravityFormCustomCRM{
 	 */
 	static function gform_tooltips($gf_tooltips){
 		
-		$gf_tooltips["customcrm_enable"] = "<h6>".__("Integrate form with CustomCRM")."</h6>".__("Tick this box to integrate this form with CustomCRM. When this form is submitted successfulling the data will be added to customCRM.");
+		$gf_tooltips["customcrm_enabled"] = "<h6>".__("Integrate form with CustomCRM")."</h6>".__("Tick this box to integrate this form with CustomCRM. When this form is submitted successfulling the data will be added to customCRM.");
 		
 		foreach(self::$gftooltips_default as $key=>$value){		
 			$gf_tooltips['customcrm_'.$key] = '<h6>' . __($value[0]) . '</h6>' . __($value[1]);
