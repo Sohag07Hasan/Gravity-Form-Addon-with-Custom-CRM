@@ -67,8 +67,7 @@ class GravityFormCustomCRM{
 		return $gf_tooltips;
 	}
 	
-	
-	
+		
 	
 	/*
 	 * adding new settings fields with the Form in admin panel
@@ -101,47 +100,16 @@ class GravityFormCustomCRM{
 					jQuery("#gform_customcrm_container").hide(speed);
 					form.customcrm_enabled = jQuery("#gform_customcrm").is(":checked");
 			}
-			function TogglecustomCRMorganisation(isInit)
-			{
-				var speed = isInit ? "" : "slow";
-				if(jQuery("#gform_customcrm_organisation").is(":checked")) 
-					jQuery("#gform_customcrm_organisation_container").show(speed);		
-				else
-					jQuery("#gform_customcrm_organisation_container").hide(speed);
-					form.customcrm_organisation = jQuery("#gform_customcrm_organisation").is(":checked");
-			}
-			function TogglecustomCRMopportunity(isInit)
-			{
-				var speed = isInit ? "" : "slow";
-				if(jQuery("#gform_customcrm_opportunity").is(":checked")) 
-					jQuery("#gform_customcrm_opportunity_container").show(speed);		
-				else
-					jQuery("#gform_customcrm_opportunity_container").hide(speed);
-					form.customcrm_opportunity = jQuery("#gform_customcrm_opportunity").is(":checked");
-			}
-			function TogglecustomCRMopportunitynote(isInit)
-			{
-				var speed = isInit ? "" : "slow";
-				if(jQuery("#gform_customcrm_opportunity_note").is(":checked")) 
-					jQuery("#gform_customcrm_opportunity_note_container").show(speed);		
-				else
-					jQuery("#gform_customcrm_opportunity_note_container").hide(speed);
-					form.customcrm_opportunity_note = jQuery("#gform_customcrm_opportunity_note").is(":checked");
-			}
-			function ChangecustomCRMfield(field_name) 
+			
+			function ChangeCustomCRMfield(field_name) 
 			{
 				//alert(jQuery("#"+field_name).val());
 				eval('form.'+field_name+' = jQuery("#"+field_name).val();');
 				//alert(form.customcrm_person_email);
 			}
 			jQuery("#gform_customcrm").attr("checked", form.customcrm_enabled ? true : false);
-			jQuery("#gform_customcrm_organisation").attr("checked", form.customcrm_organisation ? true : false);
-			jQuery("#gform_customcrm_opportunity").attr("checked", form.customcrm_opportunity ? true : false);
-			jQuery("#gform_customcrm_opportunity_note").attr("checked", form.customcrm_opportunity_note ? true : false);
-			TogglecustomCRM(true);
-			TogglecustomCRMorganisation(true);
-			TogglecustomCRMopportunity(true);
-			TogglecustomCRMopportunitynote(true);
+			ToggleCustomCRM(true);
+			
 		</script>
 		
 		<?php
@@ -161,7 +129,7 @@ class GravityFormCustomCRM{
 	 */
 	public static function get_field_selector($form_id, $field_name, $selected_field = null) {
 		$form_fields = self::get_form_fields($form_id);
-		$str = '<select id="'.$field_name.'" size="1" onchange=\'ChangeCapsuleCRMfield("'.$field_name.'");\'>';
+		$str = '<select id="'.$field_name.'" size="1" onchange=\'ChangeCustomCRMfield("'.$field_name.'");\'>';
 		$str .= '<option value="">Choose</option>'."\n";
 		foreach($form_fields as $_field) 
 		{
@@ -180,13 +148,7 @@ class GravityFormCustomCRM{
 	public static function get_form_fields($form_id){
 		$form = RGFormsModel::get_form_meta($form_id);
 		$fields = array();
-
-		//Adding default fields
-		/*
-		array_push($form["fields"],array("id" => "date_created" , "label" => __("Entry Date", "gfcapsulecrm")));
-		array_push($form["fields"],array("id" => "ip" , "label" => __("User IP", "gfcapsulecrm")));
-		array_push($form["fields"],array("id" => "source_url" , "label" => __("Source Url", "gfcapsulecrm")));
-		*/
+		
 		if(is_array($form["fields"])){
 			foreach($form["fields"] as $field){
 				if(is_array(rgar($field, "inputs"))){					
