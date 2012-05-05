@@ -13,29 +13,38 @@ class Form_submission_To_CRM{
 		//if the form is submitted
 		//add_action("gform_post_submission", array(get_class(), 'push'), 10, 2);
 		add_action("gform_after_submission", array(get_class(), 'push'), 10, 2);
+		add_action('xml_pushed_to_crm', array(get_class(), 'tracing_crm_data'), 10, 3);
 	}
 	
-	
+	/**
+	 * tracomg crm data
+	 */
+	static function tracing_crm_data($form_id, $lead_id, $status){
+		$table = Offline_CRM::get_offline_table();
+		global $wpdb;
+		$wpdb->insert($table, array('form_id'=>(int)$form_id, 'lead_id'=>(int)$lead_id, 'crm_status'=>(int)$status), array('%d', '%d', '%d'));
+	}
+
+
+
+
+
+
 	/*
 	 * Receive the submitted form data
 	 */
 	static function push($entry, $form){
 		
-		/*
-		var_dump($entry);
-		echo '<hr/>';
-		var_dump($form);
-		exit;
 		
 		$lead_id = $entry['id'];
 		$form_id = $entry['form_id'];
-		*/
+		
 		if(!$form['customcrm_enabled']) return;		
 		//include dirname(__FILE__) . '/includes/output-table.php';
 		include dirname(__FILE__) . '/includes/lead.xml.php';
 		
-				
-		exit;
+		$status = self::xml_put($xml);
+		do_action('xml_pushed_to_crm', $form_id, $lead_id, $status);
 	}
 	
 	
