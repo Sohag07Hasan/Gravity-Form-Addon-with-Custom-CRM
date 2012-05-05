@@ -11,10 +11,15 @@
 //defining some global constant
 
 define('CRMGRAVITYDIR', dirname(__FILE__));
+define('CRMGRAVITYFILE', __FILE__);
 define('CROMGRAVITYURL', plugins_url('', __FILE__));
+
 
 include CRMGRAVITYDIR . '/classes/gf-crm-class-admin.php';
 GravityFormCustomCRM :: init();
 
 include CRMGRAVITYDIR . '/classes/form-submission-class.php';
 Form_submission_To_CRM :: init();
+
+include CRMGRAVITYDIR . '/classes/offline-class.php';
+Offline_CRM :: init();

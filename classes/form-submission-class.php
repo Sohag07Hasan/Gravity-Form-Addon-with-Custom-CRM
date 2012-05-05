@@ -11,7 +11,8 @@ class Form_submission_To_CRM{
 	 */
 	public static function init(){
 		//if the form is submitted
-		add_action("gform_post_submission", array(get_class(), 'push'), 10, 2);
+		//add_action("gform_post_submission", array(get_class(), 'push'), 10, 2);
+		add_action("gform_after_submission", array(get_class(), 'push'), 10, 2);
 	}
 	
 	
@@ -19,9 +20,18 @@ class Form_submission_To_CRM{
 	 * Receive the submitted form data
 	 */
 	static function push($entry, $form){
-				
+		/*
+		var_dump($entry);
+		echo '<hr/>';
+		var_dump($form);
+		exit;
+		
+		$lead_id = $entry['id'];
+		$form_id = $entry['form_id'];
+		*/
 		if(!$form['customcrm_enabled']) return;		
-		include dirname(__FILE__) . '/includes/output-table.php';	
+		//include dirname(__FILE__) . '/includes/output-table.php';
+		include dirname(__FILE__) . '/includes/lead.xml.php';
 		
 		exit;
 	}

@@ -26,12 +26,44 @@ class GravityFormCustomCRM{
 		'flight_video_enable' => array('Video Enable', 'Flight Video Enable'),
 		'person_who_fly_fname' => array('First Name(who fly)', 'Person who Fly'),
 		'person_who_fly_lname' => array('Last Name(who fly)', 'Person who Fly'),
-		'person_who_fly_body_size' => array('Body Size(who fly)', 'Body size in CM')
+		'person_who_fly_height' => array('Height(who fly)', 'flying person height in CM'),
+		'person_who_fly_weight' => array('Weight(who fly)', 'flying person weight in KG'),
+		'money_sent' => array('Money sent', 'amount and currency for forms using paypal'),
+		'client_message' => array('Message / Note', 'custom message to the authority'),
+		'reseller_id' => array('Reseller Id', 'reseller id')
+		
 		
 	);
 	public static $gftooltips_hidden = array(
 		'client_state_after_submit' => array('Client State After Submit', 'Client State After Submit'),
-		'client_email_follow' => array('Email Follow', 'Trigger Follow Email')
+		'client_email_follow' => array('Email Follow', 'Trigger Email Follow')
+	);
+	
+	//xml keys
+	
+	public static $xml_keys_dfaults = array(
+		'client_fname' => 'ClientFirstName',
+		'client_lname' => 'ClientLastName',
+		'client_addr1' => 'ClientAddress1',
+		'client_addr2' =>  'ClientAddress2',
+		'client_zip' => 'ClientZip',
+		'client_city' => 'ClientCity',
+		'client_town' => 'ClientTown',
+		'client_telephone' =>'ClientTelephone',
+		'client_email' => 'ClientEmail',
+		'client_state' => 'ClientState',
+		'flight_location' => 'FlightLocation',
+		'flight_date' => 'FlightDate',
+		'flight_length' => 'FlightLenghth',
+		'flight_video_enable' => 'FlightVideo',
+		'person_who_fly_fname' => 'FlyingPersonFirstName',
+		'person_who_fly_lname' =>'FlyingPersonLastName',
+		'person_who_fly_height' => 'FlyingPersonHeight',
+		'person_who_fly_weight' => 'FlyingPersonWeight',
+		'money_sent' => 'MoneySent',
+		'reseller_id' => 'ResellerId',
+		'client_message' => 'Message',
+				
 	);
 	
 	
@@ -45,9 +77,10 @@ class GravityFormCustomCRM{
 		add_action('gform_advanced_settings', array(get_class(), 'gform_advanced_settings'));
 		
 		//add extra tool tips
-		add_filter('gform_tooltips', array(get_class(), 'gform_tooltips'));
+		add_filter('gform_tooltips', array(get_class(), 'gform_tooltips'));		
 		
 	}
+		
 	
 	/*
 	 *Add extra tooltips to show for this addon 
