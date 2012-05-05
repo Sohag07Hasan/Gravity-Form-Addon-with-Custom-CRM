@@ -20,6 +20,7 @@ class Form_submission_To_CRM{
 	 * Receive the submitted form data
 	 */
 	static function push($entry, $form){
+		
 		/*
 		var_dump($entry);
 		echo '<hr/>';
@@ -33,6 +34,37 @@ class Form_submission_To_CRM{
 		//include dirname(__FILE__) . '/includes/output-table.php';
 		include dirname(__FILE__) . '/includes/lead.xml.php';
 		
+				
 		exit;
+	}
+	
+	
+	/*
+	 * xml data put to the remote CRM
+	 * returns the response xml
+	 */
+	static function xml_put($xml){
+		$url = GravityFormCustomCRM :: get_crm_url();
+		
+		$ch = curl_init(); 
+		curl_setopt($ch, CURLOPT_URL, $url); 
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml); 
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: close'));       
+		$result = curl_exec($ch); 
+		curl_close($ch);
+		
+		return self::result_parse($result);
+	}
+	
+	/*
+	 * parsing the reslultant xml
+	 */
+	static function result_parse($str){
+		$xml = @simplexml_load_string($str);
+		if(!$xml) return 2;
+		return ($xml->result == 'OK') ? 1 : 2;
 	}
 }

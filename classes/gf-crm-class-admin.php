@@ -63,7 +63,8 @@ class GravityFormCustomCRM{
 		'money_sent' => 'MoneySent',
 		'reseller_id' => 'ResellerId',
 		'client_message' => 'Message',
-				
+		
+		
 	);
 	
 	
@@ -77,11 +78,41 @@ class GravityFormCustomCRM{
 		add_action('gform_advanced_settings', array(get_class(), 'gform_advanced_settings'));
 		
 		//add extra tool tips
-		add_filter('gform_tooltips', array(get_class(), 'gform_tooltips'));		
+		add_filter('gform_tooltips', array(get_class(), 'gform_tooltips'));
+		
+		//add settings page
+		add_action('admin_menu', array(get_class(), 'admin_menu_crm'));
+		
 		
 	}
-		
 	
+	/*
+	 * settigs page
+	 */
+	static function admin_menu_crm(){
+		add_options_page('crm setting page', 'CRM', 'manage_options', 'crm_options_page', array(get_class(), 'options_page_content'));
+	}
+	
+	/*
+	 * Options page content
+	 */
+	static function options_page_content(){
+		if($_POST['Crm_saved'] == 'Y'){
+			$url = trim($_POST['crm_url']);
+			update_option('gravity_form_crm_url', $url);
+		}
+		include dirname(__FILE__) . '/includes/options-page.php';
+	}
+	
+	
+	/*
+	 * return crm url
+	 */
+	static function get_crm_url(){
+		return trim(get_option('gravity_form_crm_url', false));
+	}
+
+
 	/*
 	 *Add extra tooltips to show for this addon 
 	 */
