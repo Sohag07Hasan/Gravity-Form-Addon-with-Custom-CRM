@@ -17,7 +17,7 @@ class Form_submission_To_CRM{
 		//if the form is submitted
 		//add_action("gform_post_submission", array(get_class(), 'push'), 10, 2);
 		add_action("gform_after_submission", array(get_class(), 'push'), 10, 2);
-		add_action('xml_pushed_to_crm', array(get_class(), 'tracing_crm_data'), 10, 3);
+		add_action('xml_pushed_to_crm', array(get_class(), 'tracing_crm_data'), 10, 2);
 	}
 	
 	/**

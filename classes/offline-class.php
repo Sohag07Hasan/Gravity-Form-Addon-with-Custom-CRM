@@ -82,7 +82,7 @@ Class Offline_CRM{
 		//remove and create new actions
 		remove_action('xml_pushed_to_crm', array('Form_submission_To_CRM', 'tracing_crm_data'));
 		//new action
-		add_action('xml_pushed_to_crm', array(get_class(), 'update_tracing_data'));
+		add_action('xml_pushed_to_crm', array(get_class(), 'update_tracing_data'), 10, 2);
 		
 		foreach($offline_leads as $lead){
 			$entry = RGFormsModel::get_lead($lead);
