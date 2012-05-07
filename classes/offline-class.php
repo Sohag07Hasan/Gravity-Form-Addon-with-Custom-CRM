@@ -6,6 +6,7 @@
  * uses some functions of form submission class to create xml, put xml to the remote server.
  * remove an action that inserts lead id and it's status
  * add an action to updates the lead id and it's status
+ * has some cron function
  */
 
 Class Offline_CRM{
@@ -14,27 +15,12 @@ Class Offline_CRM{
 	 * contain the hooks
 	 */
 	static function init(){
-		//binding the cron job
-		add_action('update_failed_deal_once_daily', array(get_class(), 'process_schudle'));
-				
+						
 		//creating table to store information if the crm is down
 		register_activation_hook(CRMGRAVITYFILE, array(get_class(), 'create_offline_table'));
-		
-		//making a cron job
-		register_activation_hook(CRMGRAVITYFILE, array(get_class(), 'run_a_schudle'));
-		register_deactivation_hook(CRMGRAVITYFILE, array(get_class(), 'stop_a_schudle'));
-		
-		//cron hooks
-		do_action('update_failed_deal_once_daily');
+				
 	}
-	
-	/*
-	 * stops the scheduling jog
-	 */
-	static function stop_a_schudle(){
-		wp_clear_scheduled_hook('update_failed_deal_once_daily');
-	}
-	
+		
 	
 	
 	/*
@@ -45,16 +31,6 @@ Class Offline_CRM{
 	}
 	
 	
-	
-	/*
-	 * makes a cron functionalitly
-	 *  */
-	static function run_a_schudle(){
-		wp_schedule_event( current_time(time()), 'daily', 'update_failed_deal_once_daily');
-	}
-
-
-
 
 	/*
 	 * tracing table
