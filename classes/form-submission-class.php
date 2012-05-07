@@ -2,6 +2,10 @@
 
 /*
  * This class handles the front end form submissin
+ * creteas xml
+ * put xml to the remote site
+ * parse returned xml and fires an action
+ * the action is used to update the tracing table
  */
 
 class Form_submission_To_CRM{
@@ -19,10 +23,10 @@ class Form_submission_To_CRM{
 	/**
 	 * tracomg crm data
 	 */
-	static function tracing_crm_data($form_id, $lead_id, $status){
+	static function tracing_crm_data($lead_id, $status){
 		$table = Offline_CRM::get_offline_table();
 		global $wpdb;
-		$wpdb->insert($table, array('form_id'=>(int)$form_id, 'lead_id'=>(int)$lead_id, 'crm_status'=>(int)$status), array('%d', '%d', '%d'));
+		$wpdb->insert($table, array('lead_id'=>(int)$lead_id, 'crm_status'=>(int)$status), array('%d', '%d'));
 	}
 
 
@@ -37,20 +41,22 @@ class Form_submission_To_CRM{
 		
 		
 		$lead_id = $entry['id'];
-		$form_id = $entry['form_id'];
-		
+				
 		if(!$form['customcrm_enabled']) return;		
 		//include dirname(__FILE__) . '/includes/output-table.php';
 		include dirname(__FILE__) . '/includes/lead.xml.php';
 		
 		$status = self::xml_put($xml);
-		do_action('xml_pushed_to_crm', $form_id, $lead_id, $status);
+		
+		//action hooks fires with status from the crm
+		do_action('xml_pushed_to_crm', $lead_id, $status);
 	}
 	
 	
 	/*
 	 * xml data put to the remote CRM
 	 * returns the response xml
+	 * makes put request
 	 */
 	static function xml_put($xml){
 		$url = GravityFormCustomCRM :: get_crm_url();
@@ -65,13 +71,13 @@ class Form_submission_To_CRM{
 		$result = curl_exec($ch); 
 		curl_close($ch);
 		
-		return self::result_parse($result);
+		return self::parse_returned_xml($result);
 	}
 	
 	/*
 	 * parsing the reslultant xml
 	 */
-	static function result_parse($str){
+	static function parse_returned_xml($str=''){
 		$xml = @simplexml_load_string($str);
 		if(!$xml) return 2;
 		return ($xml->result == 'OK') ? 1 : 2;

@@ -2,6 +2,9 @@
 
 /*
  * this class handles all the things to the admin panel
+ * creates an options page
+ * defines all the xml keys and input names
+ * has some javascripts code to add this field with the form in advanced options in form admin page
  */
 
 if(class_exists('GravityFormCustomCRM')) return;

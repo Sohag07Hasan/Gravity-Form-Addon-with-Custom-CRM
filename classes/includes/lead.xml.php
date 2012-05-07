@@ -13,4 +13,3 @@ foreach(GravityFormCustomCRM::$gftooltips_default as $key=>$value){
 
 $xml .= '</LeadImport>';
 
-return;
