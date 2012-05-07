@@ -22,10 +22,20 @@ Class Offline_CRM{
 		
 		//making a cron job
 		register_activation_hook(CRMGRAVITYFILE, array(get_class(), 'run_a_schudle'));
+		register_deactivation_hook(CRMGRAVITYFILE, array(get_class(), 'stop_a_schudle'));
 		
 		//cron hooks
 		do_action('update_failed_deal_once_daily');
 	}
+	
+	/*
+	 * stops the scheduling jog
+	 */
+	static function stop_a_schudle(){
+		wp_clear_scheduled_hook('update_failed_deal_once_daily');
+	}
+	
+	
 	
 	/*
 	 * main function to process the schulde

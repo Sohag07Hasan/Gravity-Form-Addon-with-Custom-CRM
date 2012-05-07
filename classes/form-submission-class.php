@@ -80,6 +80,6 @@ class Form_submission_To_CRM{
 	static function parse_returned_xml($str=''){
 		$xml = @simplexml_load_string($str);
 		if(!$xml) return 2;
-		return ($xml->result == 'OK') ? 1 : 2;
+		return (strtolower($xml->result) == 'ok') ? 1 : 2;
 	}
 }
