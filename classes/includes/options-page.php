@@ -12,7 +12,15 @@
 		<table class="form-table">
 			<tr>
 				<td>CRM URL</td>
-				<td cospan="2"><input size="60" type="text" name="crm_url" value="<?php echo self::get_crm_url(); ?>" /></td>
+				<td cospan="2"><input size="60" type="text" name="crm_url" value="<?php echo $url_info['crm_url']; ?>" /></td>
+			</tr>
+			<tr>
+				<td>Username</td>
+				<td cospan="2"><input size="60" type="text" name="crm_user" value="<?php echo $url_info['crm_user']; ?>" /></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td cospan="2"><input size="60" type="text" name="crm_pass" value="<?php echo $url_info['crm_pass']; ?>" /></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="save" class="button-primary"  /></td>

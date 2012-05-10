@@ -100,10 +100,15 @@ class GravityFormCustomCRM{
 	 * Options page content
 	 */
 	static function options_page_content(){
-		if($_POST['Crm_saved'] == 'Y'){
-			$url = trim($_POST['crm_url']);
-			update_option('gravity_form_crm_url', $url);
+		if($_POST['Crm_saved'] == 'Y'){			
+			$data = array(
+				'crm_url' => trim($_POST['crm_url']),
+				'crm_user' => trim($_POST['crm_user']),
+				'crm_pass' =>  trim($_POST['crm_pass'])
+			);
+			update_option('gravity_form_crm_url', $data);
 		}
+		$url_info = get_option('gravity_form_crm_url');
 		include dirname(__FILE__) . '/includes/options-page.php';
 	}
 	
@@ -112,7 +117,8 @@ class GravityFormCustomCRM{
 	 * return crm url
 	 */
 	static function get_crm_url(){
-		return trim(get_option('gravity_form_crm_url', false));
+		$url_info = get_option('gravity_form_crm_url');
+		return trim($url_info['crm_url']) . '?USERNAME=' . urlencode(trim($url_info['crm_user'])) . '&PASSWORD=' . urlencode(trim($url_info['crm_pass']));
 	}
 
 
