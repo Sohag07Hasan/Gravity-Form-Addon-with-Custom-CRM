@@ -15,6 +15,10 @@
 				<td cospan="2"><input size="60" type="text" name="crm_url" value="<?php echo $url_info['crm_url']; ?>" /></td>
 			</tr>
 			<tr>
+				<td>Enable SSL</td>
+				<td cospan="2"><input size="60" type="checkbox" name="crm_ssl" value="1"  <?php checked('1', $ssl);?> /></td>
+			</tr>
+			<tr>
 				<td>Username</td>
 				<td cospan="2"><input size="60" type="text" name="crm_user" value="<?php echo $url_info['crm_user']; ?>" /></td>
 			</tr>

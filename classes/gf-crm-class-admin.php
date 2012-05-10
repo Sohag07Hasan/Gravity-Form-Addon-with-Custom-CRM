@@ -106,10 +106,21 @@ class GravityFormCustomCRM{
 				'crm_user' => trim($_POST['crm_user']),
 				'crm_pass' =>  trim($_POST['crm_pass'])
 			);
+			
+			update_option('gravity_form_crm_ssl_enabled', $_POST['crm_ssl']);
 			update_option('gravity_form_crm_url', $data);
 		}
 		$url_info = get_option('gravity_form_crm_url');
+		$ssl = get_option('gravity_form_crm_ssl_enabled');
 		include dirname(__FILE__) . '/includes/options-page.php';
+	}
+	
+	
+	/*
+	 * ssl enabled
+	 */
+	static function ssl_enabled(){
+		return (get_option('gravity_form_crm_ssl_enabled') == '1') ? true : false;
 	}
 	
 	
