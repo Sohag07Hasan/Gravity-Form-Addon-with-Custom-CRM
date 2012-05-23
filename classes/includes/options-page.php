@@ -19,6 +19,10 @@
 				<td cospan="2"><input size="60" type="checkbox" name="crm_ssl" value="1"  <?php checked('1', $ssl);?> /></td>
 			</tr>
 			<tr>
+				<td>Certificate Directory(absolute) </td>
+				<td cospan="2"><input size="60" type="text" name="crm_ssl_dir" value="<?php echo $ssl_dir; ?>" /></td>
+			</tr>
+			<tr>
 				<td>Username</td>
 				<td cospan="2"><input size="60" type="text" name="crm_user" value="<?php echo $url_info['crm_user']; ?>" /></td>
 			</tr>
