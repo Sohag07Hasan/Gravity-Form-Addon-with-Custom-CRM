@@ -86,7 +86,7 @@ class GravityFormCustomCRM{
 		//add settings page
 		add_action('admin_menu', array(get_class(), 'admin_menu_crm'));
 		
-		
+		add_shortcode('crm_reseller_id', array(get_class(), 'set_reseller_id'));
 	}
 	
 	/*
@@ -214,7 +214,7 @@ class GravityFormCustomCRM{
 	 */
 	static function gfcustomcrm_form_options($form_id){
 		// load the form for the field merge tag generators
-		 $form = RGFormsModel::get_form_meta($form_id);
+		 //$form = RGFormsModel::get_form_meta($form_id);
 		 include dirname(__FILE__) . '/includes/crm-form-options.php';
 	}
 	
@@ -256,6 +256,14 @@ class GravityFormCustomCRM{
 			}
 		}
 		return $fields;
-    }
+	}
+	
+
+	/*
+	 * set the reseller id for every unique form
+	 */
+	static function set_reseller_id(){
+		return 'goodboy';
+	}
 
 }
